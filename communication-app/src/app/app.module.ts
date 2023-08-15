@@ -13,7 +13,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { ClientsComponent } from './clients/clients.component'
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input';
+import { ItemClientComponent } from './clients/item-client/item-client.component';
+import { ParentChildComponent } from './parent-child/parent-child.component';
+import { TimerComponent } from './parent-child/timer/timer.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { OnChangesComponent } from './on-changes/on-changes.component';
+import { NameChangesComponent } from './on-changes/name-changes/name-changes.component';
+import { InterceptingComponent } from './intercepting/intercepting.component';
+import { NameComponent } from './intercepting/name/name.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +30,15 @@ import { MatInputModule } from '@angular/material/input'
     ClientComponent,
     EventComponent,
     ChildItemComponent,
-    ClientsComponent
+    ClientsComponent,
+    ItemClientComponent,
+    ParentChildComponent,
+    TimerComponent,
+    OnChangesComponent,
+    NameChangesComponent,
+    InterceptingComponent,
+    NameComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -32,7 +48,8 @@ import { MatInputModule } from '@angular/material/input'
     MatIconModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
