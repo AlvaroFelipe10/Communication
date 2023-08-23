@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { delay, map, fromEvent, from, filter, interval, tap, Observable } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatRipple } from '@angular/material/core';
+import { delay, map, fromEvent, from, filter, interval, tap, Observable, first, Subscription, debounceTime, Subject, takeWhile, timer, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-operators',
@@ -7,6 +8,11 @@ import { delay, map, fromEvent, from, filter, interval, tap, Observable } from '
   styleUrls: ['./operators.component.css']
 })
 export class OperatorsComponent implements OnInit {
+
+  @ViewChild(MatRipple) ripple: MatRipple | undefined;
+  searchInput!: string;
+  myColor = "rgb(240, 166, 166,0.4)";
+
 
   constructor(){
 
@@ -64,5 +70,78 @@ export class OperatorsComponent implements OnInit {
         setTimeout(()=>observer.next(Math.floor(Math.random()*100)), i*100);
       //setTimeout(()=>observer.complete(), i*100);
     });
+
+    const s: Subscription = observable
+      .pipe(
+        tap(i=>console.log(i)),
+        //take(10)
+        first()
+        //last()
+      )
+      .subscribe(
+        v=>console.log('Output: ',v),
+        (error) => console.error(error),
+        () => console.log('Compĺete!')
+      );
+
+    const interv = setInterval(()=>{
+      console.log('Checking...');
+      if(s.closed) {
+        console.warn('Subscription CLOSED!');
+        clearInterval(interv);
+      }
+
+    },200)
+  }
+
+  debounceTimeClick() {
+    fromEvent<MouseEvent>(document, 'click')
+    .pipe(
+      tap((e)=> console.log('Click')),
+      debounceTime(1000)
+    )
+    .subscribe(
+      (e: MouseEvent) => {
+        console.log("Click with debounceTime: ", e);
+        this.launchRipple();
+      })
+  }
+  launchRipple() {
+    throw new Error('Method not implemented.');
+  }
+
+  searchEntry$: Subject<string> =  new Subject<string>();
+  searchBy_UsingDebounce(event: any) {
+    this.searchEntry$.next(this.searchInput);
+  }
+
+  debounceTimeSearch() {
+    this.searchEntry$
+      .pipe(debounceTime(500))
+      .subscribe((s)=> console.log(s))
+  }
+
+  takeWhileClick() {
+    interval(500)
+    .pipe( takeWhile((value,index) => (value<5)) )
+    .subscribe(
+      (i) => console.log('takeWhile: ', i),
+      (error) => console.error(error),
+      () => console.log('Completed!'));
+  }
+
+  takeUntilSearch() {
+
+    let duetime$ = timer(5000);
+
+    interval(500)
+    .pipe( takeUntil(duetime$) )
+    .subscribe(
+      (i) => console.log('takeWhile: ', i),
+      (error) => console.error(error),
+      () => console.log('Completed!'));
+  }
 }
-}
+
+
+
