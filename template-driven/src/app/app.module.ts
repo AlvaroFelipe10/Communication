@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormNativeValidationComponent } from './form-native-validation/form-native-validation.component';
 import { FormValidationComponent } from './form-validation/form-validation.component';
 import { FormControlComponent } from './form-control/form-control.component';
+import { FormGroupComponent } from './form-group/form-group.component';
+import { FormBuilderComponent } from './form-builder/form-builder.component';
+import { FormArrayComponent } from './form-array/form-array.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { FormControlComponent } from './form-control/form-control.component';
     TemplateDrivenFormComponent,
     FormNativeValidationComponent,
     FormValidationComponent,
-    FormControlComponent
+    FormControlComponent,
+    FormGroupComponent,
+    FormBuilderComponent,
+    FormArrayComponent
   ],
   imports: [
     BrowserModule,
